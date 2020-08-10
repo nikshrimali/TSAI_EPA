@@ -29,18 +29,17 @@ def test_readme_contents(): # 3. Contents of readme
     readme.close()
     assert len(readme_words) >= 100, "Make your README.md file interesting! Add atleast 100 words"
 
-
-
-def test_readme_proper_description(): # 4. Description of functions
-    PYFILE = True
+    def test_readme_proper_description(): # 3. Check for the functions implemented
+    READMELOOKSGOOD = True
     f = open("README.md", "r")
     content = f.read()
     f.close()
-    for c in FUNCTIONS_IMPLEMENTED:
+    for c in README_CONTENT_CHECK_FOR:
         if c not in content:
             READMELOOKSGOOD = False
             pass
     assert READMELOOKSGOOD == True, "You have not described all the functions/class well in your README.md file"
+
 
 def test_readme_file_for_formatting(): # 5. Readme File formatting
     f = open("README.md", "r")
