@@ -86,7 +86,7 @@ def test_check_add_million_q(): # 9. Sum of million q's is close to zero
     for i in range(1000000):
         q_sum = q_sum +q
 
-    assert (math.isclose(q_sum,0) is False, "Sum of million q's is not zero")
+    assert math.isclose(q_sum,0) is False, "Sum of million q's is not zero"
 
 def test_check_and_q(): # 10. Check and condition of Boolean
     q1 = session4.Qualean(0)
