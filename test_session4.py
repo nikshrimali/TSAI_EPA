@@ -29,7 +29,7 @@ def test_readme_contents(): # 3. Contents of readme
     readme.close()
     assert len(readme_words) >= 100, "Make your README.md file interesting! Add atleast 100 words"
 
-    def test_readme_proper_description(): # 3. Check for the functions implemented
+def test_readme_proper_description(): # 3. Check for the functions implemented
     READMELOOKSGOOD = True
     f = open("README.md", "r")
     content = f.read()
