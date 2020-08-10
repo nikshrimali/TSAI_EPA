@@ -68,7 +68,7 @@ class Qualean():
         if isinstance(other,Qualean):
             return True if self._state == other.state else False
 
-    def __float__(self):
+    def __float__(self,other):
         if isinstance(other,Qualean):
             return (self._state/1.0)
         else:
