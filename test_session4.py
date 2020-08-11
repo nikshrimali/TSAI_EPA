@@ -85,16 +85,18 @@ def test_add_million_q(): # 9. Functions has capital letter
         q = Qualean(rand_num)
         q = q.get_value()
         q_sum += q
-    assert (math.isclose(q_sum, 0, rel_tol=1), "Sum of million q's is not close to zero")
+    assert math.isclose(q_sum, 0, rel_tol=1), "Sum of million q's is not close to zero"
 
-def test_check_and_q(): # 10. q1 is False and q2 is not defined
-    q1 = session4.Qualean(0)
-    assert (q1 and q2) == q1, "q1 is not False and q2 is not defined"
+# def test_check_and_q(): # 10. q1 is False and q2 is not defined
+#     q1 = session4.Qualean(0)
+#     q2 = None
+#     assert q1 and q2 == q1, "q1 is not False and q2 is not defined"
 
 
 def test_check_or_q(): # 11. q1 is not False or q2 is not defined
     q1 = session4.Qualean(1)
-    assert q1 or (q2) == q1, "q1 is not False or q2 is not defined"
+    q2 = None
+    assert q1 or q2 == q1, "q1 is not False or q2 is not defined"
 
 
 def test_check_add_q(): # 12. Check add function
