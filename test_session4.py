@@ -4,8 +4,9 @@ import session4
 import os
 import inspect
 import re
-import math
+import cmath
 from session4 import Qualean
+import math
 
 l = [-1,0,1]
 
@@ -156,3 +157,34 @@ def test_qual_le(): #19. Less than Equal to working fine
     a = (q1.__le__(q2))
     b = (q1.get_value() <= q2.get_value())
     assert a==b, "LE is not working fine, results are mismatch"
+
+def test_float_q(): # 20. q1 should be giving float output on calling __float__ 
+    q1 = Qualean(random.choice(l))
+    assert isinstance(q1.__float__(),float) , "q1 should be giving float output on calling __float__ "
+
+def test_bankers_algo(): #21. Testing Bankers algo
+    q1 = Qualean(1)
+    a = q1.get_value()
+    b = round(q1.get_value(),10)
+    assert a==b, "Baniya Banker died of heart attack"
+
+def test_str(): # 22. Proper description in __str__() exists
+    r = session4.Qualean(1)
+    assert r.__str__(), 'The representation of the Qualean object does not meet expectations'
+
+def test_sqrt(): # 23. Checking cmath.sqrt
+    q = Qualean(random.choice(l))
+    assert q.__sqrt__() == cmath.sqrt(q.get_value())
+
+def test_equality():
+    q1 = Qualean((0))
+    q2 = Qualean((0))
+
+    assert q1.__eq__(q2) == (q1.get_value() == q2.get_value()), "Testing the equality"
+
+def test_bool():
+    q1 = Qualean(0)
+    assert q1.__bool__() == (bool(q1.get_value()))
+    
+
+    
