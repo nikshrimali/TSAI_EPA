@@ -29,18 +29,17 @@ def test_readme_contents(): # 3. Contents of readme
     readme.close()
     assert len(readme_words) >= 100, "Make your README.md file interesting! Add atleast 100 words"
 
-
-
-def test_readme_proper_description(): # 4. Description of functions
-    PYFILE = True
+def test_readme_proper_description(): # 3. Check for the functions implemented
+    READMELOOKSGOOD = True
     f = open("README.md", "r")
     content = f.read()
     f.close()
-    for c in FUNCTIONS_IMPLEMENTED:
+    for c in README_CONTENT_CHECK_FOR:
         if c not in content:
             READMELOOKSGOOD = False
             pass
     assert READMELOOKSGOOD == True, "You have not described all the functions/class well in your README.md file"
+
 
 def test_readme_file_for_formatting(): # 5. Readme File formatting
     f = open("README.md", "r")
@@ -87,7 +86,7 @@ def test_check_add_million_q(): # 9. Sum of million q's is close to zero
     for i in range(1000000):
         q_sum = q_sum +q
 
-    assert (math.isclose(q_sum,0) is False, "Sum of million q's is not zero")
+    assert math.isclose(q_sum,0) is False, "Sum of million q's is not zero"
 
 def test_check_and_q(): # 10. Check and condition of Boolean
     q1 = session4.Qualean(0)
