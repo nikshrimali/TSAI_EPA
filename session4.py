@@ -29,10 +29,11 @@ class Qualean():
 
 
     def __and__(self, other):
-        if isinstance(other, Qualean):
-            return bool(self._state) and bool(other._state)
+        if not isinstance(other, Qualean):
+            return False
+            
         else:
-            False
+            return bool(self._state) and bool(other._state)
 
 
     def __or__(self,other):
@@ -59,8 +60,10 @@ class Qualean():
             return True if self._state == other._state else False
 
     def __float__(self):
-        return (self._state/1.0)
-
+        if isinstance(other,Qualean):
+            return (self._state/1.0)
+        else:
+            return None
     
     def __ge__(self, other):
         if isinstance(other,Qualean):
@@ -70,7 +73,14 @@ class Qualean():
         if isinstance(other,Qualean):
             return True if self._state > other._state else False
 
-    
+    def __lt__(self, other):
+        if isinstance(other,Qualean):
+            return True if self._state < other._state else False
+
+    def __le__(self, other):
+        if isinstance(other,Qualean):
+            return True if self._state <= other._state else False
+
     def __invertsign__(self):
         return self._state*(-1)
 

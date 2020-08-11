@@ -1,6 +1,5 @@
 import pytest
 import random
-import string
 import session4
 import os
 import inspect
@@ -87,16 +86,14 @@ def test_add_million_q(): # 9. Functions has capital letter
         q_sum += q
     assert math.isclose(q_sum, 0, rel_tol=1), "Sum of million q's is not close to zero"
 
-# def test_check_and_q(): # 10. q1 is False and q2 is not defined
-#     q1 = session4.Qualean(0)
-#     q2 = None
-#     assert q1 and q2 == q1, "q1 is not False and q2 is not defined"
+def test_check_and_q(): # 10. q1 is False and q2 is not defined
+    q1 = Qualean(0)
+    assert (q1 and q2) == q1, "q1 is not False and q2 is not defined"
 
 
 def test_check_or_q(): # 11. q1 is not False or q2 is not defined
     q1 = session4.Qualean(1)
-    q2 = None
-    assert q1 or q2 == q1, "q1 is not False or q2 is not defined"
+    assert (q1 or q2) == q1, "q1 is not False or q2 is not defined"
 
 
 def test_check_add_q(): # 12. Check add function
@@ -132,3 +129,30 @@ def test_qual_equality(): # 15. Check equality in Qualean values
     a2 = q2.get_value()
     assert q1.__eq__(q2) == (a1 == a2), "Qualean equality is working fine"
 
+def test_qual_gt(): # 16. Check Greater than in Qualean values
+    q1 = Qualean(random.choice(l))
+    q2 = Qualean(random.choice(l))
+    a = (q1.get_value()) > (q2.get_value())
+    b = (q1.__gt__(q2))
+    assert a==b, "Greater than is not working fine"
+
+def test_qual_ge(): #17. Check Greater than equal to in Qualean values
+    q1 = Qualean(random.choice(l))
+    q2 = Qualean(random.choice(l))
+    a = (q1.get_value()) >= (q2.get_value())
+    b = (q1.__ge__(q2))
+    assert a==b, ">=  is not working fine"
+
+def test_qual_lt(): # 18. Check less than values
+    q1 = Qualean(random.choice(l))
+    q2 = Qualean(random.choice(l))
+    a = (q1.__lt__(q2))
+    b = (q1.get_value() < q2.get_value())
+    assert a==b, "LT is not working fine, results are mismatch"
+
+def test_qual_le(): #19. Less than Equal to working fine
+    q1 = Qualean(random.choice(l))
+    q2 = Qualean(random.choice(l))
+    a = (q1.__le__(q2))
+    b = (q1.get_value() <= q2.get_value())
+    assert a==b, "LE is not working fine, results are mismatch"
