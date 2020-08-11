@@ -62,14 +62,14 @@ def test_check_add_q(): # 6. q + q + q ... 100 times != 100 * q
     assert q_sum != q_mul, "q + q + q ... 100 times != 100 * q"
 
 
-# def test_indentations(): # 7. Testing spaces and indentations
-#     ''' Returns pass if used four spaces for each level of syntactically \
-#     significant indenting.'''
-#     lines = inspect.getsource(session4)
-#     spaces = re.findall('\n +.', lines)
-#     for space in spaces:
-#         assert len(space) % 4 == 2, "Your script contains misplaced indentations"
-#         assert len(re.sub(r'[^ ]', '', space)) % 4 == 0, "Your code indentation does not follow PEP8 guidelines" 
+def test_indentations(): # 7. Testing spaces and indentations
+    ''' Returns pass if used four spaces for each level of syntactically \
+    significant indenting.'''
+    lines = inspect.getsource(session4)
+    spaces = re.findall('\n +.', lines)
+    for space in spaces:
+        assert len(space) % 4 == 2, "Your script contains misplaced indentations"
+        assert len(re.sub(r'[^ ]', '', space)) % 4 == 0, "Your code indentation does not follow PEP8 guidelines" 
 
 
 def test_function_name_had_cap_letter(): # 8. Functions has capital letter
@@ -185,6 +185,6 @@ def test_equality():
 def test_bool():
     q1 = Qualean(0)
     assert q1.__bool__() == (bool(q1.get_value()))
-    
+
 
     
