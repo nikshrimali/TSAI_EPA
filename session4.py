@@ -3,7 +3,6 @@ import decimal
 from decimal import Decimal
 import math
 
-a = int()
 class Qualean():
     def __init__(self,rand_num):
         self.rand_num = rand_num
@@ -12,7 +11,6 @@ class Qualean():
     def input_valid(self):
         with decimal.localcontext() as ctx:
             ctx.prec = 10
-            # print(self.rand_num)
 
             if self.rand_num == 1 or self.rand_num == -1:
                 self.rand_num = (self.rand_num)
@@ -25,29 +23,21 @@ class Qualean():
                 self._state = 0
                 return self._state
             else:
-                # print(self.rand_num)
-                # print(self.)
                 raise ValueError('Only numbers between 0, 1 and -1 are allowed')
     def get_value(self):
         return self._state
 
 
     def __and__(self, other):
-        print('inside and')
-        if isinstance(self, Qualean):
-            print('inside isinstacne')
-            if bool(self._state):
-                print(bool(self._state))
-                if bool(other.__state):
-                    return int.__and__(self._state, other._state)
-            else:
-                return False
+        if isinstance(other, Qualean):
+            return bool(self._state) and bool(other._state)
         else:
-            return False
+            False
+
 
     def __or__(self,other):
         if isinstance(other, Qualean):
-            return self._state or other._state
+            return bool(self._state) or bool(other._state)
         else:
             return None
 
@@ -66,25 +56,20 @@ class Qualean():
 
     def __eq__(self, other):
         if isinstance(other,Qualean):
-            return True if self._state == other.state else False
+            return True if self._state == other._state else False
 
-    def __float__(self,other):
-        if isinstance(other,Qualean):
-            return (self._state/1.0)
-        else:
-            return None
+    def __float__(self):
+        return (self._state/1.0)
+
     
     def __ge__(self, other):
         if isinstance(other,Qualean):
-            return self._state >= other._state
-        else:
-            return None
+            return True if self._state >= other._state else False
 
     def __gt__(self, other):
         if isinstance(other,Qualean):
-            return self._state > other._state
-        else:
-            return None
+            return True if self._state > other._state else False
+
     
     def __invertsign__(self):
         return self._state*(-1)
@@ -99,11 +84,5 @@ class Qualean():
         a = Decimal.sqrt(self._state)
         return a
 
-    def __bool__(self, val=0):
-        # if isinstance(other, Qualean):
-        # print('Bool class - state = ',self._state)
-        if self._state:
-            return True
-        else:
-            return False
-
+    def __bool__(self):
+        return bool(self._state)
