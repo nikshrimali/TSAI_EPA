@@ -3,8 +3,9 @@ import decimal
 from decimal import Decimal
 import cmath
 
+
 class Qualean():
-    def __init__(self,rand_num):
+    def __init__(self, rand_num):
         self.rand_num = rand_num
         self.input_valid()
 
@@ -15,7 +16,7 @@ class Qualean():
 
             if self.rand_num == 1 or self.rand_num == -1:
                 self.rand_num = Decimal(self.rand_num)
-                self._imgnum = Decimal(random.uniform(-1,1))
+                self._imgnum = Decimal(random.uniform(-1, 1))
                 self._state = (self.rand_num * self._imgnum)
                 return self._state
 
@@ -25,20 +26,17 @@ class Qualean():
             else:
                 raise ValueError('Only numbers between 0, 1 and -1 are allowed')
 
-
     def get_value(self):
         return self._state
 
-
     def __and__(self, other):
-        if not isinstance(other,Qualean):
+        if not isinstance(other, Qualean):
             return False
         else:
             return bool(self._state) and bool(other._state)
 
-
-    def __or__(self,other):
-        if isinstance(other,Qualean):
+    def __or__(self, other):
+        if isinstance(other, Qualean):
             return bool(self._state) or bool(other._state)
         else:
             return None
@@ -49,40 +47,40 @@ class Qualean():
     def __str__(self):
         return 'Qualean({0})'.format(self._state)
 
-    def __add__(self,other):
-        if isinstance(other,Qualean):
+    def __add__(self, other):
+        if isinstance(other, Qualean):
             return self._state + other._state
         else:
             return None
 
     def __eq__(self, other):
-        if isinstance(other,Qualean):
+        if isinstance(other, Qualean):
             return True if self._state == other._state else False
 
     def __float__(self):
-            return float(self._state)
+        return float(self._state)
 
     def __ge__(self, other):
-        if isinstance(other,Qualean):
+        if isinstance(other, Qualean):
             return True if self._state >= other._state else False
 
     def __gt__(self, other):
-        if isinstance(other,Qualean):
+        if isinstance(other, Qualean):
             return True if self._state > other._state else False
 
-    def __lt__(self,other):
-        if isinstance(other,Qualean):
+    def __lt__(self, other):
+        if isinstance(other, Qualean):
             return True if self._state < other._state else False
 
     def __le__(self, other):
-        if isinstance(other,Qualean):
+        if isinstance(other, Qualean):
             return True if self._state <= other._state else False
 
     def __invertsign__(self):
         return self._state*(-1)
 
-    def __mul__(self,other):
-        if isinstance(other,Qualean):
+    def __mul__(self, other):
+        if isinstance(other, Qualean):
             return self._state * other._state
         else:
             return False
