@@ -8,7 +8,7 @@ def time_it(fn, *args, repetitons= 1, **kwargs):
 
     for _ in range(repetitons):
         start_time = time.perf_counter()
-        ins_time = fn(*args,**kwargs)
+        fn(*args,**kwargs)
         end_time = time.perf_counter()
         ins_time = end_time - start_time
         total_time.append(ins_time)
@@ -44,7 +44,7 @@ def polygon_area(side_length, sides):
     '''Calcuates the area of a regular polygon for\
         no of sides of side_length'''
 
-    if sides < 6:
+    if sides < 7:
         perimeter = side_length*sides
         apothem = side_length/(2*(math.tan(math.pi/sides)))
         area = perimeter*apothem/2
