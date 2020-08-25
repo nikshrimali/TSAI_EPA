@@ -27,5 +27,5 @@ jobs:
 
     - name: Test with pytest
       run: |
-        cd Assignment-5
+        cd Assignment-6
         pytest -v
