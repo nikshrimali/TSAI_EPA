@@ -47,16 +47,6 @@ def test_readme_file_for_formatting():
     assert content.count("#") >= 10
 
 
-# def test_indentations():
-#     ''' Returns pass if used four spaces for each level of syntactically \
-#     significant indenting.'''
-#     lines = inspect.getsource(session6)
-#     spaces = re.findall('\n +.', lines)
-#     for space in spaces:
-#         assert len(space) % 4 == 2, "Your script contains misplaced indentations"
-#         assert len(re.sub(r'[^ ]', '', space)) % 4 == 0, "Your code indentation does not follow PEP8 guidelines"
-
-
 def test_function_name_had_cap_letter():
     '''Raises error if Functions has capital letter'''
     functions = inspect.getmembers(session6, inspect.isfunction)
@@ -89,6 +79,9 @@ def test_poker_annotations():
     assert kinda_poker.__annotations__ !=  None, "The Poker code is unworthy, can't hold Mjölnir"
 
 def test_sattebaazi():
+    '''Sends two inputs as lists of different decks 21 times,
+    and validates the output from the scoring function'''
+
     # 1 Four  of a kind vs 
     a = ['queen-hearts', 'queen-clubs', 'queen-diamonds', 'queen-spades']
     b = ['10-hearts', 'queen-hearts', 'king-hearts', 'king-spades']
@@ -194,6 +187,118 @@ def test_sattebaazi():
     a = ['queen-hearts', 'queen-clubs', 'jack-diamonds', 'jack-diamonds', 'king-diamonds']
     b = ['10-hearts', '9-hearts', '8-hearts', '7-hearts', '6-hearts']
     assert kinda_poker(a, b) == b, "Straight Flush wins here"
+
+# 12
+def test_royalflush():
+    ''' Tests the properties when RoyalFlush is sent as Input'''
+    a = ['ace-hearts', 'queen-hearts', 'king-hearts']
+    score = get_player_score(a)
+    assert score['rank'] == 1, "RoyalFlush is ranked 1"
+    assert score['deck_type'] == "Royal Flush"
+
+# 13
+def test_straightflush():
+    '''Tests the properties when StraightFlush is sent as Input'''
+    a = ['10-hearts', '9-hearts', '8-hearts', '7-hearts']
+    score = get_player_score(a)
+    assert score['rank'] == 2, "RoyalFlush is ranked 1"
+    assert score['deck_type'] == "Straight Flush"
+
+
+# 14
+def test_fourkind():
+    '''Tests the properties when Four of a kind is sent as Input'''
+    a = ['queen-hearts', 'queen-spades', 'queen-diamonds', 'queen-clubs', '5-clubs']
+    score = get_player_score(a)
+    assert score['rank'] == 3, "RoyalFlush is ranked 1"
+    assert score['deck_type'] == "Four of a kind"
+
+# 15
+
+def test_fullhouse():
+    '''Tests the properties when Full House is sent as Input'''
+    a = ['ace-hearts', 'ace-spades', 'ace-diamonds', 'king-clubs', 'king-hearts']
+    score = get_player_score(a)
+    assert score['rank'] == 4
+    assert score['deck_type'] == "Full House"
+
+
+# 16
+
+def test_flush():
+    '''Tests the properties when Flush is sent as Input'''
+    a = ['king-hearts', '8-hearts','6-hearts','4-hearts','2-hearts',]
+    score = get_player_score(a)
+    assert score['rank'] == 5
+    assert score['deck_type'] == "Flush"
+
+
+# 17
+
+def test_straight():
+    '''Tests the properties when straight is sent as Input'''
+    a = ['8-hearts','7-clubs','6-hearts','5-diamonds', '4-spades']
+    score = get_player_score(a)
+    assert score['rank'] == 6
+    assert score['deck_type'] == "Straight"
+
+
+# 18
+def test_three_kind():
+    '''Tests the properties when three of a kind is sent as Input'''
+    a = ['queen-hearts','queen-clubs','7-hearts','queen-diamonds', '4-spades']
+    score = get_player_score(a)
+    assert score['rank'] == 7
+    assert score['deck_type'] == "Three of a kind"
+
+
+# 19
+def test_two_pair():
+    '''Tests the properties when two_pair is sent as Input'''
+    a = ['queen-hearts','queen-clubs','9-hearts','9-diamonds', '4-spades']
+    score = get_player_score(a)
+    assert score['rank'] == 8
+    assert score['deck_type'] == "Two pairs"
+
+
+# 20
+def test_one_pair():
+    '''Tests the properties when one_pair is sent as Input'''
+    a = ['queen-hearts','queen-clubs','9-hearts','8-diamonds', '4-spades']
+    score = get_player_score(a)
+    assert score['rank'] == 9
+    assert score['deck_type'] == "One pair"
+
+
+# 21
+def test_high_card():
+    '''Tests the properties when high_card is sent as Input'''
+    a = ['ace-hearts','queen-clubs','10-hearts','9-diamonds', '4-spades']
+    score = get_player_score(a)
+    assert score['rank'] == 10
+    assert score['deck_type'] == "High Card"
+
+# 22
+def test_score_doc():
+    '''Checks if the score function has docstrings or not'''
+    assert get_player_score.__doc__ != None, "The Score code is also unworthy, can't hold Mjölnir"
+
+
+# 23
+def test_score_annotations():
+    '''Checks if the score function has annotations or not'''
+    assert get_player_score.__annotations__ !=  None, "The Score code is also unworthy, can't hold Mjölnir"
+
+# 24
+def test_indentations():
+    ''' Returns pass if used four spaces for each level of syntactically
+    significant indenting.'''
+    lines = inspect.getsource(session6)
+    spaces = re.findall('\n +.', lines)
+    for space in spaces:
+        assert len(space) % 4 == 2, "Your script contains misplaced indentations"
+        assert len(re.sub(r'[^ ]', '', space)) % 4 == 0, "Your code indentation does not follow PEP8 guidelines"
+
 
 
 

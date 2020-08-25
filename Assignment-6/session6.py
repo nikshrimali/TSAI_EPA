@@ -3,7 +3,8 @@
 vals = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
 suits = ['spades', 'clubs', 'hearts', 'diamonds']
 
-def get_my_deck_normally():
+def get_my_deck_normally()->list:
+    '''Returns a deck of 52 cards when function is called'''
     deck = []
 
     for i in suits:
@@ -15,15 +16,18 @@ def get_my_deck_normally():
     # print(f'Size of the deck is {len(deck)}')
     return deck
 
-# Poker Function
-a = list(map(lambda x: list(x), list(map(lambda x: x+"-"+suits[t], vals) for t in range(4))))
+def get_deck_oneline() -> list:
+    '''Single expression includes lambda, zip, and map function to create 52 cards in a deck'''
+    return [list(zip(map(lambda x: x+"-"+suits[t], vals))) for t in range(4)]
 
+
+# Poker Function
 value_dict = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'jack':11, 'queen':12, 'king':13, 'ace':14, 'spades':1, 'clubs':1, 'hearts':1, 'diamonds':1}
 suits = ['spades', 'clubs', 'hearts', 'diamonds']
 
-def get_player_score(a):
-    '''Takes input as a list of cards user has, and computes different scores based on the type of cards
-    '''
+def get_player_score(a:list) -> dict:
+    '''Checks the values supplied by the user as input to the list'''
+    correct_value = False
     vals_score = []
     rank = 0
     deck_type = ""
@@ -43,7 +47,7 @@ def get_player_score(a):
 
     # Dict of suits
     in_suits = [x.split("-")[1] for x in a] # Count of the suits received in the function
-    
+
     # Score of suit cards
     vals_score = sorted([value_dict[t] for t in in_vals], reverse=True)
     suits_dict = {i:in_suits.count(i) for i in in_suits} # Counting elements of suits dict++
@@ -104,13 +108,13 @@ def get_player_score(a):
         rank = 5
         deck_type = "Flush"
         print('Flush')
-    
+
     # 10 High Card
     else:
         rank = 10
         deck_type = "High Card"
         print(f'High card {rank}')
-        
+
 
     return {'rank': rank, 'score':sum(vals_score), 'deck_type':deck_type}
 
@@ -118,13 +122,13 @@ def get_player_score(a):
 def kinda_poker(a:list, b:list) -> list:
     '''If you don't have any money and currently going through a Quater life crisis, then playing this game is perfect for you.
     kinda_poker(list1, list2) -> winner_list - Checks the type of cards and computes a score to predict who wins'''
-    
+
     winner = None
-    
+
     if (len(a) in range(3,6)) and (len(b) in range(3,6)) and len(a) == len(b):
         score_a = get_player_score(a)
         score_b = get_player_score(b)
-        
+
         if score_a['rank'] < score_b['rank']:
             winner = a
         elif score_a['rank'] == score_b['rank']:
@@ -136,6 +140,6 @@ def kinda_poker(a:list, b:list) -> list:
             winner = b
 
         return winner
-        
+
     else: # Cards check
         raise ValueError('Only players between 3 and 5 are allowed and size of lists must be equal')
