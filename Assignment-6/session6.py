@@ -3,22 +3,21 @@
 vals = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
 suits = ['spades', 'clubs', 'hearts', 'diamonds']
 
+# Deck generated Normally
 def get_my_deck_normally()->list:
-    '''Returns a deck of 52 cards when function is called'''
+    '''Returns a deck of 52 cards when function is called which is generated in a normal fashion'''
     deck = []
 
     for i in suits:
         for j in vals:
             a = i+'-'+j
-            deck.append(a) #zip(i,j)
-
-    # print(deck)
-    # print(f'Size of the deck is {len(deck)}')
+            deck.append(a)
     return deck
 
+# Deck generated in one-line
 def get_deck_oneline() -> list:
     '''Single expression includes lambda, zip, and map function to create 52 cards in a deck'''
-    return [list(zip(map(lambda x: x+"-"+suits[t], vals))) for t in range(4)]
+    return sorted(list(map(lambda x: x[0]+'-'+x[1], list(zip(suits*len(vals), vals*len(suits))))))
 
 
 # Poker Function
@@ -26,7 +25,7 @@ value_dict = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, '
 suits = ['spades', 'clubs', 'hearts', 'diamonds']
 
 def get_player_score(a:list) -> dict:
-    '''Checks the values supplied by the user as input to the list'''
+    '''Checks the cards, identifies and computes a score of user's deck'''
     correct_value = False
     vals_score = []
     rank = 0
