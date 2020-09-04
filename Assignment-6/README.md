@@ -18,13 +18,13 @@
 
 #  Functions Implemented 
 
-## get_player_score(a:list) -> dict:
+## get_player_score(a:list) -> dict
     Checks the cards, identifies and computes a score of user's deck
 
 ## get_my_deck_normally
     Returns a deck of 52 cards when function is called using normal string
 
-## kinda_poker(a:list, b:list) -> list:
+## kinda_poker(a:list, b:list) -> list
     Checks the type of cards and computes a score to predict who wins
 
 ## get_deck_oneline()
@@ -36,7 +36,7 @@
 # Algorithm for Poker
 
 
-![Rules-Poker](./saved_images/rules.jpg)
+![Rules-Poker](./saved_images/rules.JPG)
 
  > Never played poker before, hence mentioning my understanding of the game which explains the logic of code
 
