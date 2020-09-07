@@ -18,52 +18,34 @@ Using reduce function: PTS:100
 - Write the above again from scratch where KA can be changed to DL, and 1000/9999 ranges can be provided. Now use a partial function such that 1000/9999 are hardcoded, but KA can be provided PTS:100
  
 
-## Target
-
-- Basics (applicable to 2/3 above):
-- Proper readme file - 50 (if not there then 0)
-- Docstrings must, and it must mention what the function is doing (2, 3) - 50
-- Write annotations for 3 - 50 pts
-- Basics tests to ensure your code if correct (20+ combination tests (counted as 1 test) in 3, check 1/2 with a manual list of 52 cards. Overall 20 tests at minimum) - 200 pts
-- Submit Github link with all test files and github actions in place. 
-
-
 #  Functions Implemented 
 
-## get_player_score(a:list) -> dict
-    Checks the cards, identifies and computes a score of user's deck
+## def add_even_odd_list(l1:list,l2:list)-> list:
+    '''adds 2 iterables a and b such that a is even and b is odd'''
 
-## get_my_deck_normally
-    Returns a deck of 52 cards when function is called using normal string
+## def strip_vowels(input_str:str)->str:
+    '''strips every vowel from a string provided'''
 
-## kinda_poker(a:list, b:list) -> list
-    Checks the type of cards and computes a score to predict who wins
+## def check_fibb(t):
+    '''A function using only list filter lambda that can tell whether a number is a Fibonacci number or not Using a pre-calculated list to store fab numbers till 10000'''
 
-## get_deck_oneline()
-    single expression that includes lambda, zip and map functions to select create 52 cards in a deck
+## def relu_list(input_list:list)->list:
+    '''acts like a ReLU function for a 1D array'''
 
+## def getbiggestchar(test:str)->str:
+    '''Outputs the biggest char in the string provided'''
 
+## def relu_list(input_list:list)->list:
+    '''acts like a ReLU function for a 1D array'''
 
-# Testcases Implemented
+## def sumevenchar(input_list):
+    '''adds only even numbers in a list'''
 
-## test_readme_exists
-    Checks if README.md exists
+## def get_numplate()-> list:
+    '''Using randint, random.choice and list comprehensions, write an expression that generates 15 random KADDAADDDD number plates, where KA is fixed, D stands for a digit, and A stands for Capital alphabets. 10<<DD<<99 & 1000<<DDDD<<9999'''
 
-## test_readme_contents
-    Contents of readme file has been properly written or not
+## def partial_numplate(st_code, range_start:int, range_end:int)-> list:
+    '''Write the above again from scratch where KA can be changed to DL, and 1000/9999 ranges can be provided. Now use a partial function such that 1000/9999 are hardcoded, but KA can be provided'''
 
-## test_readme_file_for_formatting
-    Checks for Readme File formatting
-
-## test_function_name_had_cap_letter
-    Raises error if Functions has capital letter
-
-## test_incorrect_value
-    Sends an invalid input as cards to check if code is raising error
-
-
-## test_normal_deck_doc
-    Checks if the normal_deck function has docstrings or not
-
-## test_normal_deck_annotations
-    Checks if the normal_deck function has annotations or not
+## def check_profane_words(input_para:str)->bool:
+    '''A list comprehension expression that takes a ~200 word paragraph, and checks whether it has any of the swear words mentioned in '''

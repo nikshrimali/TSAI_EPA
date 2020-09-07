@@ -1,7 +1,7 @@
 import pytest
 import random
-import session6
-from session6 import *
+import session7
+from session7 import *
 import os
 import inspect
 import re
@@ -9,11 +9,15 @@ import cmath
 import math
 
 
+README_CONTENT_CHECK_FOR = []
 
-README_CONTENT_CHECK_FOR = ['get_my_deck_normally', 'get_deck_oneline', 'get_player_score', 'kinda_poker']
-
-ACTUAL_DECK = ['spades-2', 'spades-3', 'spades-4', 'spades-5', 'spades-6', 'spades-7', 'spades-8', 'spades-9', 'spades-10', 'spades-jack', 'spades-queen', 'spades-king', 'spades-ace', 'clubs-2', 'clubs-3', 'clubs-4', 'clubs-5', 'clubs-6', 'clubs-7', 'clubs-8', 'clubs-9', 'clubs-10', 'clubs-jack', 'clubs-queen', 'clubs-king', 'clubs-ace', 'hearts-2', 'hearts-3', 'hearts-4', 'hearts-5', 'hearts-6', 'hearts-7', 'hearts-8', 'hearts-9', 'hearts-10', 'hearts-jack', 'hearts-queen', 'hearts-king', 'hearts-ace', 'diamonds-2', 'diamonds-3', 'diamonds-4', 'diamonds-5', 'diamonds-6', 'diamonds-7', 'diamonds-8', 'diamonds-9', 'diamonds-10', 'diamonds-jack', 'diamonds-queen', 'diamonds-king', 'diamonds-ace']
-
+def generate_random_list(start, end, in_range):
+    '''Generates a random list of numbers as between start_index, end_index and range'''
+    list_gen = []
+    for _ in range(in_range):
+        rand_num = random.randint(start, end)
+        list_gen.append(rand_num)
+    return list_gen
 
 def test_readme_exists():
     '''Checks if README.md exists'''
@@ -51,292 +55,146 @@ def test_readme_file_for_formatting():
 
 def test_function_name_had_cap_letter():
     '''Raises error if Functions has capital letter'''
-    functions = inspect.getmembers(session6, inspect.isfunction)
+    functions = inspect.getmembers(session7, inspect.isfunction)
     for function in functions:
         assert len(re.findall('([A-Z])', function[0])) == 0, "You have used Capital letter(s) in your function names"
 
+# Checks the addition of random lists
+def test_add_even_odd_list():
+    '''Checks implementation of adding 2 iterables a and b such that a is even and b is odd'''
+    for i in range(1000):
+        l1 = generate_random_list(start=1, end=10, in_range=20)
+        l2 = generate_random_list(start=1, end=10, in_range=20)
+        match_list = []
 
-def test_incorrect_value():
-    '''Sends an invalid input as cards to check if code is raising error'''
-    with pytest.raises(ValueError):
-        kinda_poker(['queen-hearts', 'queen-clubs', 'sdf-clubs'], ['ace-clubs','ace-clubs','ace-clubs'])
+        for i,j in zip(l1,l2):
+                if i%2==0 and j%2 !=0:
+                    match_list.append(i+j)
+        # print('match_list',match_list)
+        # print('Add_even_odd',add_even_odd_list(l1,l2))
 
-def test_3_players():
-    '''Checks the code behaviour when 3 values are sent as inputs instead of 2'''
-    with pytest.raises(TypeError):
-        kinda_poker(['queen-hearts', 'queen-clubs', 'sdf-clubs'], ['ace-clubs','ace-clubs','ace-clubs'],[])
-
-def test_6_cards():
-    '''Checks the code behaviour when 6 cards are sent as inputs instead of range(3,6)'''
-    with pytest.raises(TypeError):
-        kinda_poker(['queen-hearts', 'queen-clubs', 'sdf-clubs','ace-clubs','ace-clubs','ace-clubs'])
-
-
-def test_poker_doc():
-    '''Checks if the poker function has docstrings or not'''
-    assert kinda_poker.__doc__ != None, "The Poker code is unworthy, can't hold Mjölnir"
-
-def test_poker_annotations():
-    '''Checks if the poker function has annotations or not'''
-    assert kinda_poker.__annotations__ !=  None, "The Poker code is unworthy, can't hold Mjölnir"
-
-def test_sattebaazi():
-    '''Sends two inputs as lists of different decks 21 times,
-    and validates the output from the scoring function'''
-
-    # 1 Four  of a kind vs 
-    a = ['queen-hearts', 'queen-clubs', 'queen-diamonds', 'queen-spades']
-    b = ['10-hearts', 'queen-hearts', 'king-hearts', 'king-spades']
-    assert kinda_poker(a,b) == a, "Four of a kind works"
-
-    # 2 Three of a kind vs Straight flush
-    a = ['queen-hearts', 'queen-clubs', 'queen-diamonds']
-    b = ['10-hearts', '9-hearts', '8-hearts']
-    assert kinda_poker(a, b) == b, "Three of a kind works"
-
-    # 3 Royal Flush vs Royal Flush
-    a = ['ace-hearts', 'queen-hearts', 'king-hearts']
-    b = ['jack-hearts', 'queen-hearts', '10-hearts']
-    assert kinda_poker(a, b) == a, "Higher order royal flush works"
-
-    # 4 Two pair vs one pair
-    a = ['queen-hearts', 'queen-clubs', 'jack-diamonds', 'jack-diamonds', 'king-diamonds']
-    b = ['10-hearts', 'queen-hearts', 'king-hearts', 'king-spades', '2-hearts']
-    assert kinda_poker(a, b) == a, "Two pair works"
-
-    # 5 Full House vs one pair
-    a = ['queen-hearts', 'ace-hearts', 'queen-diamonds', 'jack-diamonds', 'jack-clubs']
-    b = ['queen-spades', 'queen-hearts', 'king-hearts', 'king-spades', '2-hearts']
-    assert kinda_poker(a, b) == a, "Full house should win"
-
-    # 6 Flush vs High card
-    a = ['king-hearts', '8-hearts', '6-hearts', '4-hearts', '2-hearts']
-    b = ['10-spades', 'queen-hearts', 'king-hearts', '8-spades', '2-hearts']
-    assert kinda_poker(a, b) == a, "Flush should win"
-
-    # 7 Straight vs Straight
-    a = ['ace-hearts', 'queen-hearts', 'king-diamonds']
-    b = ['8-hearts', '7-spades', '6-diamonds']
-    assert kinda_poker(a, b) == a, "a is a bigger straight"
-
-    # 8 Three of a kind vs Straight flush
-    a = ['queen-hearts', 'queen-clubs', 'queen-diamonds']
-    b = ['9-hearts', '8-hearts', '7-hearts']
-    assert kinda_poker(a, b) == b
-
-    # 9 Three of a kind vs flush
-    a = ['queen-hearts', 'queen-clubs', 'queen-diamonds']
-    b = ['10-hearts', '2-hearts', '8-hearts']
-    assert kinda_poker(a, b) == b
-    
-    # 10 Three of a kind vs High card
-    a = ['queen-hearts', 'queen-clubs', 'queen-diamonds']
-    b = ['10-hearts', '2-spades', '8-hearts']
-    assert kinda_poker(a, b) == a
-
-    # 11 Royal Flush vs Straight
-
-    a = ['ace-hearts', 'queen-hearts', 'king-hearts']
-    b = ['jack-spades', 'queen-hearts', '10-hearts']
-    assert kinda_poker(a, b) == a
-
-    # 12 Royal Flush vs High Card
-    a = ['ace-hearts', 'queen-hearts', 'king-hearts']
-    b = ['jack-spades', 'queen-hearts', '2-hearts']
-    assert kinda_poker(a, b) == a
-
-    # 13 Royal Flush vs 3 of a kind
-    a = ['ace-hearts', 'queen-hearts', 'king-hearts']
-    b = ['jack-spades', 'jack-hearts', 'jack-diamonds']
-    assert kinda_poker(a, b) == a
-
-    # 14 Two pairs vs High card
-    a = ['queen-hearts', 'ace-hearts', 'queen-diamonds', 'jack-diamonds', 'jack-clubs']
-    b = ['ace-spades', 'queen-hearts', 'king-hearts', '10-spades', '9-diamonds']
-    assert kinda_poker(a, b) == a, "Full house should win"
-
-    # 5 Two pairs vs Full House
-    a = ['queen-hearts', 'ace-hearts', 'queen-diamonds', 'jack-diamonds', 'jack-clubs']
-    b = ['ace-spades', 'ace-hearts', 'king-hearts', '10-spades', 'ace-diamonds']
-    assert kinda_poker(a, b) == b, "Full house should win"
-
-    # 16 Royal flush vs Straight Flush
-    a = ['king-clubs', 'queen-clubs', 'ace-clubs']
-    b = ['10-hearts', '9-hearts', '8-hearts']
-    assert kinda_poker(a, b) == a, "Three of a kind works"
-
-    # 17 Two pair vs High card
-    a = ['queen-hearts', 'queen-clubs', 'jack-diamonds', 'jack-diamonds', 'king-diamonds']
-    b = ['10-hearts', 'ace-hearts', 'king-hearts', '9-spades', '2-hearts']
-    assert kinda_poker(a, b) == a, "Two pair works"
-
-    # 18 Two pair vs Royal Flush
-    a = ['queen-hearts', 'queen-clubs', 'jack-diamonds', 'jack-diamonds', 'king-diamonds']
-    b = ['ace-hearts', 'king-hearts', 'queen-hearts', '10-hearts', 'jack-hearts']
-    assert kinda_poker(a, b) == b, "Royal Flush wins here"
-
-    # 19 Two pair vs Flush
-    a = ['queen-hearts', 'queen-clubs', 'jack-diamonds', 'jack-diamonds', 'king-diamonds']
-    b = ['ace-hearts', '8-hearts', '2-hearts', '10-hearts', 'jack-hearts']
-    assert kinda_poker(a, b) == b, "Flush wins here"
-
-    # 20 Two pair vs Three of a kind
-    a = ['queen-hearts', 'queen-clubs', 'jack-diamonds', 'jack-diamonds', 'king-diamonds']
-    b = ['ace-hearts', 'ace-spades', 'ace-diamonds', '10-hearts', 'jack-hearts']
-    assert kinda_poker(a, b) == b, "Three of a kind wins here"
-    
-    # 21 Two pair vs Straight Flush
-    a = ['queen-hearts', 'queen-clubs', 'jack-diamonds', 'jack-diamonds', 'king-diamonds']
-    b = ['10-hearts', '9-hearts', '8-hearts', '7-hearts', '6-hearts']
-    assert kinda_poker(a, b) == b, "Straight Flush wins here"
-
-# 12
-def test_royalflush():
-    ''' Tests the properties when RoyalFlush is sent as Input'''
-    a = ['ace-hearts', 'queen-hearts', 'king-hearts']
-    score = get_player_score(a)
-    assert score['rank'] == 1, "RoyalFlush is ranked 1"
-    assert score['deck_type'] == "Royal Flush"
-
-# 13
-def test_straightflush():
-    '''Tests the properties when StraightFlush is sent as Input'''
-    a = ['10-hearts', '9-hearts', '8-hearts', '7-hearts']
-    score = get_player_score(a)
-    assert score['rank'] == 2, "RoyalFlush is ranked 1"
-    assert score['deck_type'] == "Straight Flush"
+        assert match_list == add_even_odd_list(l1,l2), 'Even odd list is not working fine'
 
 
-# 14
-def test_fourkind():
-    '''Tests the properties when Four of a kind is sent as Input'''
-    a = ['queen-hearts', 'queen-spades', 'queen-diamonds', 'queen-clubs', '5-clubs']
-    score = get_player_score(a)
-    assert score['rank'] == 3, "RoyalFlush is ranked 1"
-    assert score['deck_type'] == "Four of a kind"
+def test_strip_vowels():
+    '''strips every vowel from a string provided'''
+    for i in range(1000):
+        rand_list = (generate_random_list(start=97, end=120, in_range=5))
+        rand_str = [chr(x) for x in rand_list]
+        vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' ]
+        non_vowels = []
+        for i in rand_str:
+            if i not in vowels:
+                non_vowels.append(i)
 
-# 15
-
-def test_fullhouse():
-    '''Tests the properties when Full House is sent as Input'''
-    a = ['ace-hearts', 'ace-spades', 'ace-diamonds', 'king-clubs', 'king-hearts']
-    score = get_player_score(a)
-    assert score['rank'] == 4
-    assert score['deck_type'] == "Full House"
+        assert strip_vowels(rand_str) == ''.join(non_vowels), "Strip vowels not working fine"
 
 
-# 16
+def test_check_fibb():
+    for i in range(1000):
+        rand_int = random.randint(0,1000)
+        fibb_list = False
+        if rand_int in fibb_nos:
+            fibb_list = True
 
-def test_flush():
-    '''Tests the properties when Flush is sent as Input'''
-    a = ['king-hearts', '8-hearts','6-hearts','4-hearts','2-hearts',]
-    score = get_player_score(a)
-    assert score['rank'] == 5
-    assert score['deck_type'] == "Flush"
-
-
-# 17
-
-def test_straight():
-    '''Tests the properties when straight is sent as Input'''
-    a = ['8-hearts','7-clubs','6-hearts','5-diamonds', '4-spades']
-    score = get_player_score(a)
-    assert score['rank'] == 6
-    assert score['deck_type'] == "Straight"
+        assert check_fibb(rand_int) == fibb_list, "Check Fibbonacci is working fine"
 
 
-# 18
-def test_three_kind():
-    '''Tests the properties when three of a kind is sent as Input'''
-    a = ['queen-hearts','queen-clubs','7-hearts','queen-diamonds', '4-spades']
-    score = get_player_score(a)
-    assert score['rank'] == 7
-    assert score['deck_type'] == "Three of a kind"
+def test_relu_list():
+    '''Checks implementation of adding 2 iterables a and b such that a is even and b is odd'''
+    for i in range(1000):
+        l1 = generate_random_list(start=-10, end=10, in_range=20)
+
+        match_list = l1
+
+        for index,i in enumerate(l1):
+                if i<0:
+                    l1[index] = 0
+
+        assert l1 == relu_list(match_list), 'Even odd list is not working fine'
 
 
-# 19
-def test_two_pair():
-    '''Tests the properties when two_pair is sent as Input'''
-    a = ['queen-hearts','queen-clubs','9-hearts','9-diamonds', '4-spades']
-    score = get_player_score(a)
-    assert score['rank'] == 8
-    assert score['deck_type'] == "Two pairs"
+def test_get_sigmoid():
+    '''Checks implementation of adding 2 iterables a and b such that a is even and b is odd'''
+    for i in range(1000):
+        l1 = [0.1111,1,2,3,4]
+        match_list = l1
+
+        for index,i in enumerate(l1):
+
+                if math.log(i) > 0.5:
+                    l1[index] = 1
+                else:
+                    l1[index] = 0
+
+        assert l1 == get_sigmoid([0.1111,1,2,3,4]), "Even odd list is not working fine"
+
+def test_getbiggestchar():
+    '''Checks implementation of adding 2 iterables a and b such that a is even and b is odd'''
+    for i in range(1000):
+        l1 = (generate_random_list(start=97, end=120, in_range=5))
+        rand_str = [chr(x) for x in l1]
+        assert chr(sorted(l1,reverse=True)[0]) == getbiggestchar(rand_str)
 
 
-# 20
-def test_one_pair():
-    '''Tests the properties when one_pair is sent as Input'''
-    a = ['queen-hearts','queen-clubs','9-hearts','8-diamonds', '4-spades']
-    score = get_player_score(a)
-    assert score['rank'] == 9
-    assert score['deck_type'] == "One pair"
+def test_sumevenchar():
+    '''adds only even numbers in a list'''
+    for i in range(1000):
+        even_sum = 0
+        l1 = generate_random_list(start=-10, end=10, in_range=20)
+        for i in l1:
+            if i%2==0:
+                even_sum += i
+        
+        assert even_sum == sumevenchar(l1)
 
 
-# 21
-def test_high_card():
-    '''Tests the properties when high_card is sent as Input'''
-    a = ['ace-hearts','queen-clubs','10-hearts','9-diamonds', '4-spades']
-    score = get_player_score(a)
-    assert score['rank'] == 10
-    assert score['deck_type'] == "High Card"
+def test_add_third_element()->int:
+    '''adds every 3rd number in a list'''
+    for i in range(1000):
+        third_element_sum = 0
+        l1 = generate_random_list(start=-10, end=10, in_range=20)
+        for i in l1:
+            if (l1.index(i)+1)%3==0:
+                third_element_sum += i
+            
+        
+        assert third_element_sum == add_third_element(l1)
 
-# 22
-def test_score_doc():
-    '''Checks if the score function has docstrings or not'''
-    assert get_player_score.__doc__ != None, "The Score code is also unworthy, can't hold Mjölnir"
+
+def test_get_numplate():
+    num_plate_list = get_numplate()
+    assert len(num_plate_list) == 15, "15 Number plates should be generated"
+    for i in num_plate_list:
+        # Checks it starts with KA
+        assert 'KA' in str(i)
+        # Checks the capital letters
+        assert ([True for x in [ord(x) for x in (i.split('-')[1])] if (x>64 and x <91)].count(True)==2)
+        # Checks the end numbers are between 1000 and 9999
+        assert int(i.split('-')[2]) < 9999 and int(i.split('-')[2]) > 1000
 
 
-# 23
-def test_score_annotations():
-    '''Checks if the score function has annotations or not'''
-    assert get_player_score.__annotations__ !=  None, "The Score code is also unworthy, can't hold Mjölnir"
+def test_call_partial_numplate():
+    state_code = "RJ"
+    num_plate_list = call_partial_numplate("RJ")
+    assert len(num_plate_list) == 15
+    for i in num_plate_list:
+        # Checks it starts with KA
+        assert state_code in str(i), "Error in state code match"
+        # Checks the capital letters
+        assert ([True for x in [ord(x) for x in (i.split('-')[1])] if (x>64 and x <91)].count(True)==2)
+        # Checks the end numbers are between 1000 and 9999
+        assert int(i.split('-')[2]) < 9999 and int(i.split('-')[2]) > 1000
 
-# 24
-def test_indentations():
-    ''' Returns pass if used four spaces for each level of syntactically
-    significant indenting.'''
-    lines = inspect.getsource(session6)
-    spaces = re.findall('\n +.', lines)
-    for space in spaces:
-        assert len(space) % 4 == 2, "Your script contains misplaced indentations"
-        assert len(re.sub(r'[^ ]', '', space)) % 4 == 0, "Your code indentation does not follow PEP8 guidelines"
 
-# 25
-def test_normal_deck():
-    '''Checks the deck generated by one line is correct or not'''
-    boring_deck = get_my_deck_normally()
-    assert sorted(boring_deck) == sorted(ACTUAL_DECK), "Free to to kuch bhi code likhoge kya!!!"
+def test_check_profane_words():
 
-# 26
-def test_oneliner_deck():
-    '''Checks the deck generated by one line is correct or not'''
-    awesome_deck = get_deck_oneline()
-    assert sorted(awesome_deck) == sorted(ACTUAL_DECK), "Free to to kuch bhi code likhoge kya!!!"
+    random_para = '''Her mom had warned her. She had been warned time and again, but she had refused to believe her. She had done everything right and she knew she would be rewarded for doing so with the promotion. So when the promotion was given to her main rival, it not only stung, it threw her belief system into disarray. It was her first big lesson in life, but not the last
+Greg understood that this situation would make Michael terribly uncomfortable. Michael simply had no idea what was about to come and even though Greg could prevent it from happening, he opted to let it happen. It was quite ironic, really. It was something Greg had said he would never wish upon anyone a million times, yet here he was knowingly letting it happen to one of his best friends. He rationalized that it would ultimately make Michael a better person and that no matter how uncomfortable, everyone should experience racism at least once in their lifetime.
+There was a time when he would have embraced the change that was coming. In his youth, he sought adventure and the unknown, but that had been years ago. He wished he could go back and learn to find the excitement that came with change but it was useless. That curiosity had long left him to where he had come to loathe anything that put him out of his comfort zone.
+As she sat watching the world go by, something caught her eye. It wasn't so much its color or shape, but the way it was moving. She squinted to see if she could better understand what it was and where it was going, but it didn't help. As she continued to stare into the distance, she didn't understand why this uneasiness was building inside her body. She felt like she should get up and run. If only she could make out what it was. At that moment, she comprehended what it was and where it was heading, and she knew her life would never be the same'''
 
-# 27
-def test_match_decks():
-    '''Checks the  output matches of both decks'''
-    boring_deck = get_my_deck_normally()
-    awesome_deck = get_deck_oneline()
-
-    assert sorted(boring_deck) == sorted(awesome_deck), "Gangadhar hi Shaktimaan hai bhai"
-
-# 28
-def test_oneliner_doc():
-    '''Checks if the oneliner function has docstrings or not'''
-    assert kinda_poker.__doc__ != None, "The Poker code is unworthy, can't hold Mjölnir"
-
-# 29
-def test_oneliner_annotations():
-    '''Checks if the oneliner function has annotations or not'''
-    assert kinda_poker.__annotations__ !=  None, "The Poker code is unworthy, can't hold Mjölnir"
-
-# 30
-def test_normal_deck_doc():
-    '''Checks if the normal_deck function has docstrings or not'''
-    assert kinda_poker.__doc__ != None, "The Poker code is unworthy, can't hold Mjölnir"
-
-# 31
-def test_normal_deck_annotations():
-    '''Checks if the normal_deck function has annotations or not'''
-    assert kinda_poker.__annotations__ !=  None, "The Poker code is unworthy, can't hold Mjölnir"
+    assert check_profane_words(random_para) == False, "Paragraph is a clean para"
+    random_para +=' xxx'
+    print(random_para)
+    assert check_profane_words(random_para) == True, "Paragraph is a un-clean para"
