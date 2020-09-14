@@ -44,8 +44,8 @@ def test_function_name_had_cap_letter():
 
 def test_check_docstring():
     '''Checks working of check_docstring function'''
-    assert check_docstring(print)() is True, "Docstring more than 50 chars works"
-    assert check_docstring(test_check_docstring)() is False, "Docstring less than 50 chars works fine"
+    assert check_docstring(print)() == True, "Docstring more than 50 chars works"
+    assert check_docstring(test_check_docstring)() == False, "Docstring less than 50 chars works fine"
 
 
 def test_func_count():
@@ -63,7 +63,7 @@ def test_func_count_dict():
     for i in range(50):
         count_dict = f1(add, 1,3)
 
-    assert count_dict["add"] is 100, "count dict works fine"
+    assert count_dict["add"] == 100, "count dict works fine"
 
 def test_indentations():
     ''' Returns pass if used four spaces for each level of syntactically
