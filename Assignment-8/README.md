@@ -1,6 +1,6 @@
-# Assignment 7
+# Assignment 8
 
-## Problem Statement
+## <b>Problem Statement</b>
 
 - Write a closure that takes a function and then check whether the function passed has a docstring with more than 50 characters. 50 is stored as a free variable - 200
 - Write a closure that gives you the next Fibonacci number - 100
@@ -9,34 +9,45 @@
 - No readme or no docstring for each function, or no test cases, 0. Write test cases to check boundary conditions that might cause your code to fail. 
  
 
-#  Functions Implemented 
+## <b> Functions Implemented </b>
 
-## def add_even_odd_list(l1:list,l2:list)-> list:
-    '''adds 2 iterables a and b such that a is even and b is odd'''
+## get_next_fibbonacci()-> list:
+    Write a closure that gives you the next Fibonacci number
 
-## def strip_vowels(input_str:str)->str:
-    '''strips every vowel from a string provided'''
+##  func_count():
+    Closure  that can keep a track of how many times add/mul/div functions were called, and update a global dictionary variable with the counts
+   
+    
+##  check_fibb():
+    A function using only list filter lambda that can tell whether a number is a Fibonacci number or not Using a pre-calculated list to store fab numbers till 10000
 
-## def check_fibb(t):
-    '''A function using only list filter lambda that can tell whether a number is a Fibonacci number or not Using a pre-calculated list to store fab numbers till 10000'''
+##  func_count_dict(dic_oper:dict):
+    Modifies func_count such that now we can pass in different dictionary variables to update different dictionaries
 
-## def relu_list(input_list:list)->list:
-    '''acts like a ReLU function for a 1D array'''
+## <b>Testcases Implemented</b>
 
-## def getbiggestchar(test:str)->str:
-    '''Outputs the biggest char in the string provided'''
+##  test_readme_exists():
+    Checks if README.md exists
 
-## def relu_list(input_list:list)->list:
-    '''acts like a ReLU function for a 1D array'''
+##  test_readme_contents():
+    Contents of readme file has been properly written or not
+   
 
-## def sumevenchar(input_list):
-    '''adds only even numbers in a list'''
+##  test_readme_file_for_formatting():
+    Checks for Readme File formatting
 
-## def get_numplate()-> list:
-    '''Using randint, random.choice and list comprehensions, write an expression that generates 15 random KADDAADDDD number plates, where KA is fixed, D stands for a digit, and A stands for Capital alphabets. 10<<DD<<99 & 1000<<DDDD<<9999'''
+##  test_function_name_had_cap_letter():
+    Raises error if Functions has capital letter
 
-## def partial_numplate(st_code, range_start:int, range_end:int)-> list:
-    '''Write the above again from scratch where KA can be changed to DL, and 1000/9999 ranges can be provided. Now use a partial function such that 1000/9999 are hardcoded, but KA can be provided'''
+##  test_check_docstring():
+    Checks working of check_docstring function
 
-## def check_profane_words(input_para:str)->bool:
-    '''A list comprehension expression that takes a ~200 word paragraph, and checks whether it has any of the swear words mentioned in '''
+##  test_func_count():
+    Checks working of func_count function that returns a dict
+
+##  test_func_count_dict():
+    Checks working of func_count_dict function that takes input a dict and returns dict
+
+##  test_indentations():
+     Returns pass if used four spaces for each level of syntactically
+    significant indenting
