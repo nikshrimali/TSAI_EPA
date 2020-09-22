@@ -1,7 +1,7 @@
 import pytest
-import session8
+import session9
 import inspect
-from session8 import *
+from session9 import *
 import os
 import re
 
@@ -29,47 +29,51 @@ def test_readme_file_for_formatting():
 
 def test_function_name_had_cap_letter():
     '''Raises error if Functions has capital letter'''
-    functions = inspect.getmembers(session8, inspect.isfunction)
+    functions = inspect.getmembers(session9, inspect.isfunction)
     for function in functions:
         assert len(re.findall('([A-Z])', function[0])) == 0, "You have used Capital letter(s) in your function names"
 
-def test_function_name_had_cap_letter():
-    '''Raises error if Functions has capital letter'''
-    fibb_nos = [ 0, 1, 1, 2, 3, 5, 8, 13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765]
-    f1 = get_next_fibbonacci()
-    for i in range(len(fibb_nos)):
-        # print(a = f1(),  fibb_nos[i])
-        assert f1() == fibb_nos[i], "Fibonaaci not correct"
+def test_add_evensec():
+    '''Checks implementation of run_oddsec decorator'''
+    assert add(1,3, sec=34) == None, "Function runs at even second, not cool"
+    assert add(1,3, sec=33) == 4, "Function runs at odd second, so cool"
+    assert add(1,2,3) == 6 or add(1,2,3) == None, "Function works perfectly fine"
+
+def test_logger():
+    '''Checks if logger function returns a dictionary'''
+    assert type(check_logger()) == dict, "No logging dictionary returned"
 
 
-def test_check_docstring():
-    '''Checks working of check_docstring function'''
-    assert check_docstring(print)() == True, "Docstring more than 50 chars works"
-    assert check_docstring(test_check_docstring)() == False, "Docstring less than 50 chars works fine"
+def test_sod():
+    '''Creates a dataframe that follows the template and adds data to check sod function'''
 
+    data = { "Emp_Names":['Nikhil','Naman', 'Ad', 'SupAd'],
+            "ID": [1,2,3,4],
+            "Priviledge": [1,2,3,4], 
+            "Money": ["Bohotkam", "Bohotzada", "Mat hi poocho", "Paisa kya hota hai"],
+            "Useless_Info": ['sdfsadg', 'srtwtrew', 'kyukuiuy', 'gjkgjh']}
 
-def test_func_count():
-    '''Checks working of func_count function that returns a dict'''
-    f1 = func_count()
-    for i in range(50):
-        count_dict = f1(add, 1,3)
-    assert count_dict["add"] == 50, "count dict works fine"
+    df = pd.DataFrame(data, columns = ['Emp_Names', "Priviledge", "Money", "ID", "Useless_Info"])
+    assert check_userdata('Nikhil', df).equals(df[['Emp_Names']]) == True
+    assert check_userdata('Naman', df).equals(df[['Emp_Names',"Priviledge", "Money"]]) == True
+    assert check_userdata('Ad', df).equals(df[['Emp_Names',"Priviledge", "Money", "ID"]]) == True
+    assert check_userdata('SupAd', df).equals(df[['Emp_Names',"Priviledge", "ID",  "Useless_Info"]]) == True
     
 
-def test_func_count_dict():
-    '''Checks working of func_count_dict function that takes input a dict and returns dict'''
-    count_dict = {'add': 50, 'mul': 0, 'div': 0}
-    f1 = func_count_dict(count_dict)
-    for i in range(50):
-        count_dict = f1(add, 1,3)
+def test_authentication():
+    '''Checks the authentication by setting a password and calling the function'''
+    user_password = set_password()
+    assert add_auth(user_password, 'tsaiRocks123', 1,2) == 3
+    assert add_auth(user_password, 'dfdssdf', 1,2) == None
 
-    assert count_dict["add"] == 100, "count dict works fine"
 
-def test_indentations():
-    ''' Returns pass if used four spaces for each level of syntactically
-    significant indenting.'''
-    lines = inspect.getsource(session8)
-    spaces = re.findall('\n +.', lines)
-    for space in spaces:
-        assert len(space) % 4 == 2, "Your script contains misplaced indentations"
-        assert len(re.sub(r'[^ ]', '', space)) % 4 == 0, "Your code indentation does not follow PEP8 guidelines"
+def test_htmlize():
+    '''Validates different html syntax implementations of htmlize decorator'''
+    assert htmlize([2,3]) == '<ul>\n<li>2</li>\n<li>3</li>\n</ul>'
+    assert htmlize(1/3) == str(round(1/3,2))
+    assert htmlize({1:1,2:2}) == '<ul>\n<li>1=1</li>\n<li>2=2</li>\n</ul>'
+
+
+def check_timed():
+    '''Checks the returned values of timed decorator'''
+    assert type(square(2)) == float, "Checks the return value of avg time taken for 100 reps"

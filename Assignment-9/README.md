@@ -1,28 +1,25 @@
-# Assignment 8
-
-## <b>Problem Statement</b>
-
-- Write a closure that takes a function and then check whether the function passed has a docstring with more than 50 characters. 50 is stored as a free variable - 200
-- Write a closure that gives you the next Fibonacci number - 100
-- We wrote a closure that counts how many times a function was called. Write a new one that can keep a track of how many times add/mul/div functions were called, and update a global dictionary variable with the counts - 250
-- Modify above such that now we can pass in different dictionary variables to update different dictionaries - 250
-- No readme or no docstring for each function, or no test cases, 0. Write test cases to check boundary conditions that might cause your code to fail. 
- 
+# Decorators
 
 ## <b> Functions Implemented </b>
 
-## get_next_fibbonacci()-> list:
-    Write a closure that gives you the next Fibonacci number
+## sod(fn):
+    '''Maps the user's and returns information applicable to him'''
 
-##  func_count():
-    Closure  that can keep a track of how many times add/mul/div functions were called, and update a global dictionary variable with the counts
+##  timed(n_times: int):
+    '''Decorates the function to get its performance for n times'''
    
     
-##  check_fibb():
-    A function using only list filter lambda that can tell whether a number is a Fibonacci number or not Using a pre-calculated list to store fab numbers till 10000
+##  run_oddsec(fn):
+    '''Checks and runs the function only if the cuurent second is odd'''
 
-##  func_count_dict(dic_oper:dict):
-    Modifies func_count such that now we can pass in different dictionary variables to update different dictionaries
+##  htmlize(obj):
+    '''Takes differnt functions under its registry and converts them into html forms'''
+
+## logger(fn):
+    '''Decorator takes care of function stats'''
+
+## authenticate(fn):
+    '''Decorator to authenticate  before accessing any functions'''
 
 ## <b>Testcases Implemented</b>
 
@@ -39,15 +36,20 @@
 ##  test_function_name_had_cap_letter():
     Raises error if Functions has capital letter
 
-##  test_check_docstring():
-    Checks working of check_docstring function
+##  test_add_evensec():
+    '''Checks implementation of run_oddsec decorator'''
 
-##  test_func_count():
-    Checks working of func_count function that returns a dict
+##  test_logger():
+    '''Checks if logger decorator returns a dictionary'''
 
-##  test_func_count_dict():
-    Checks working of func_count_dict function that takes input a dict and returns dict
+##  test_sod():
+    '''Creates a dataframe that follows the template and adds data to validate sod decorator'''
 
-##  test_indentations():
-     Returns pass if used four spaces for each level of syntactically
-    significant indenting
+##  test_authentication():
+    '''Checks the authentication by setting a password and calling the function'''
+
+## test_htmlize():
+    '''Validates different html syntax implementations of htmlize decorator'''
+
+## check_timed():
+    '''Checks the returned values of timed decorator'''
