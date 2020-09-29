@@ -1,175 +1,108 @@
-import time
-from time import perf_counter
-import pandas as pd
-from functools import wraps
-from datetime import datetime
-from numbers import Integral
-from collections.abc import Sequence, Set 
-from decimal import Decimal
-from functools import singledispatch
-from html import escape
-import time
+from functools import wraps, namedtuple
 
+# largest blood type, mean-current_location, oldest_person_age and average age
+from collections import Counter
+from datetime import date
 
-def run_oddsec(fn):
-    '''Checks and runs the function only if the cuurent second is odd'''
+# Get profile stats
 
-    def check_run(*args, sec = None, **kwargs):
-        if sec is None:
-            sec = datetime.now().second
-        print('time checknow', sec)
-        if sec % 2 != 0:
-            print("Func runs now - odd sec")
-            return fn(*args, **kwargs)
-        else:
-            print('Even second, not running now')
-    return check_run
+def profile_stats(profiles, dict=False):
+    '''Returns profile stats based on the random fake profiles generated
+    :args profiles - tuple of profiles
+    :returns largest_blood_grp, highest_age, average_age, mean_location'''
+    blood_groups = []
+    age_list = []
+    location_list = []
+    longitude = 0
+    latitude = 0
 
-@run_oddsec
-def add(*args):
-    return sum(args)
-
-# HTMLIZE
-
-@singledispatch
-def htmlize(obj):
-    '''Takes differnt functions under its registry and converts them into html forms'''
-    return escape(str(obj))
-
-@htmlize.register(Integral)
-def html_real(a):
-    return f'{round(a, 2)}'
-
-@htmlize.register(float)
-def html_real(a):
-    return f'{round(a, 2)}'
-
-@htmlize.register(Decimal)
-def html_real(a):
-    return f'{round(a, 2)}'
-
-@htmlize.register(str)
-def html_str(s):
-    return escape(s).replace('\n', '<br/>\n')
-
-@htmlize.register(tuple)
-@htmlize.register(list)
-def html_sequence(l):
-    items = (f'<li>{htmlize(item)}</li>' for item in l)
-    return '<ul>\n' + '\n'.join(items) + '\n</ul>'
-
-@htmlize.register(dict)
-def html_dict(d):
-    items = (f'<li>{k}={v}</li>' for k, v in d.items())
-    return '<ul>\n' + '\n'.join(items) + '\n</ul>'
-
-# Log of functions
-
-def logger(fn):
-    '''Decorator takes care of function stats'''
-
-    stats_dict = dict()
-
-    @wraps(fn)
-    def store_stats(*args, **kwargs):
-        func_started = time.perf_counter()
-        stats_dict["func_started"] = datetime.now()
-        fn(*args, **kwargs)
-        stats_dict["func_ended"] = datetime.now()
-        func_ended = time.perf_counter()
-        stats_dict["run_time"] = func_ended - func_started
-        stats_dict["func_name"] = fn.__name__
-        stats_dict["func_docstr"] = fn.__doc__
-
-        return stats_dict
-
-    return store_stats
-
-@logger
-def check_logger():
-    a = 1
-    for i in range(1000):
-        a = a**i
-        
-
-# Authenticate
-def set_password(password=None):
-    '''Sets the default password if no values are supplied
-    :args password: str
-    :returns inner: closure function
-    '''
-    def inner():
-        nonlocal password
-        if password == None:
-            password = 'tsaiRocks123'
-        return hash(password)
-    return inner
-
-
-def authenticate(fn):
-    '''Decorator to authenticate  before accessing any functions'''
-
-    def check_creds(user_password, in_password, *args, **kwargs):
-        if user_password() != hash(in_password):
-            print('Bhai isko hack karke kya hi achive kar lega life mai')
-
-        else:
-            print('suer Authenticated')
-            print(f"Function {fn.__name__} is called")
-            return fn(*args)
-    return check_creds
-
-@authenticate
-def add_auth(*args):
-    return sum(args)
-
-
-# Admin stuff
-
-def sod(fn):
-    '''Maps the user's and returns information applicable to him'''
-    dict_priv = {
-
-    1: ["Emp_Names"],
-    2: ["Emp_Names", "Priviledge", "Money"],
-    3: ["Emp_Names", "Priviledge", "Money", "ID"],
-    4: ["Emp_Names", "Priviledge", "ID", "Useless_Info"]
-    }
-    
-    @wraps(fn)
-    def check_priv(emp_name, df):
-        '''Returns dataframe output based on user's priviledges'''
-        if emp_name in df.values:
-            priv_no = df.loc[df['Emp_Names'] == emp_name]["Priviledge"]
-            priv_no = (priv_no.item())
-            return df[dict_priv[priv_no]]
-        else:
-            print('Employee data not in system, please double check')
-    return check_priv
-
-@sod
-def check_userdata(emp_name):
-    return None
-
-
-def timed(n_times: int):
-    '''Decorates the function to get its performance for n times'''
-    def outer(fn):
-        
-        def inner(*args, **kwargs):
-            total_elapsed = 0
-            for i in range(n_times):
-                timer_start  = perf_counter()
-                fn(*args, **kwargs)
-                total_elapsed  += (perf_counter() - timer_start)
+    if dict:
+        for index, profile in enumerate(profiles):
+            blood_groups.append(profiles[index]['blood_group'])
+            age_list.append((date.today() - profiles[index]['birthdate']).days)
+            longitude += (profiles[index]['current_location'][0])
+            latitude += (profiles[index]['current_location'][1])
+            location_list.append([longitude, latitude])
             
-            avg_time = total_elapsed/n_times
-            print('Avg Run time: {0:.6f}s ({1} reps)'.format(avg_time, n_times))
-            return avg_time
-        return inner
-    return outer
+    else:
 
-@timed(100)
-def square(a):
-    '''Tests timed funtion by squaring a no n times'''
-    a = a**2
+        for index in (range(len(profiles[0]))):
+
+            #Adding stats into the lists
+            blood_groups.append(profiles[0][index].blood_group)
+            age_list.append((date.today() - profiles[0][index].birthdate).days)
+            longitude += (profiles[0][index].current_location[0])
+            latitude += (profiles[0][index].current_location[1])
+            location_list.append([longitude, latitude])
+            
+    blood_dict = Counter(blood_groups)
+    largest_blood_grp =  max(blood_dict, key=blood_dict.get)
+    highest_age = max(age_list)
+    average_age = sum(age_list)/len(age_list)
+    mean_location = sum(location_list[0])/len(location_list), sum(location_list[1])/len(location_list)
+    # Printing the results
+
+    print(f'The statistics of 10k profiles are  --Largest Bloodgroup - {largest_blood_grp}, -- Highest Age - {round(highest_age/365)}, -- Average Age - {round(average_age/365)}, -- mean location - {mean_location}')
+    return largest_blood_grp, round(highest_age/365), round(average_age/365), mean_location
+
+# Master profile 
+
+def master_profile(fn):
+    '''This decorator returns a tuple of 10k profiles'''
+    profile = namedtuple("profile", [*fake.profile().keys()])
+    master_profile = namedtuple("master", "profiles")
+        
+    @wraps(fn)
+    def store_profiles(n_params):
+        profile_list = []
+        for i in range(n_params):
+            fake_profile = profile(**fake.profile()) # Generate random fake profiles
+            profile_list.append(fake_profile) # Append it to a list
+        return master_profile(profile_list) # Put the entire list into a named tuple
+    return store_profiles
+
+@master_profile
+def get_master_profilelist(n_params):
+    pass
+
+a = get_master_profilelist(10000)
+profile_stats(a)
+
+from functools import wraps, namedtuple
+
+# Calculations using a Dictionary
+
+def master_dict(fn):
+    '''This decorator returns a dictionary of 10k profiles'''
+    master_dict = dict()
+        
+    @wraps(fn)
+    def store_profiles(n_params):
+        profile_list = []
+        for i in range(n_params):
+            master_dict[i] = fake.profile() # Generate random fake profiles
+            
+        return master_dict # Put the entire list into a named tuple
+    return store_profiles
+
+@master_dict
+def get_dict(n_params):
+    print('Tuples received')
+
+a = get_dict(10000)
+profile_stats(a, dict=True)
+
+# Time counter
+
+from time import perf_counter
+def timer(n_reps):
+    def outer(fn):
+        def inner(*args, **kwargs):
+            times = []
+            for _ in range(n_reps):
+                start_time = perf_counter()
+                fn(*args, **kwargs)
+                end_time = perf_counter() - start_time
+                times.append(end_time)
+            return sum(times)/n_reps
+        return inner
