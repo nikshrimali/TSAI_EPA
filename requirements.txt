@@ -2,3 +2,4 @@ pytest
 flake8
 requests
 pandas
+faker

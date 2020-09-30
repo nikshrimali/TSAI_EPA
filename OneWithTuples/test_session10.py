@@ -2,6 +2,7 @@ import pytest
 import session10
 import inspect
 from session10 import *
+from faker import Faker
 import os
 import re
 
@@ -33,3 +34,6 @@ def test_function_name_had_cap_letter():
     for function in functions:
         assert len(re.findall('([A-Z])', function[0])) == 0, "You have used Capital letter(s) in your function names"
 
+def test_perf_tuples_dicts():
+    '''Checks if namedtuples(named_tuples) performs better than dict(dict) '''
+    assert log_tuple_function() < log_dict_function(), "Tuples not are faster!!!, check again"
