@@ -1,65 +1,31 @@
-# Named Tuples
+# Create these modules:
+- jpg/jpeg to png conversion (use PIL library) j2p
+- png to jpg conversion (use PIL library) p2j
+- image resizer that can resize bulk images with these features:
+- resize by user determined percentage (say 50% for height and width) (proportional) res_p
+- resize by user determined width (proportional) res_w
+- resize by user determined height (proportional) res_h
+- image cropper that can crop bulk images with these features:
+- center square/rectangle crop by user-determined pixels crp_px
+- centre square/rectangle crop by user-determined percentage (crop to 50%/70%) crp_p
+- it let's user know which all images were not cropped due to size mismatches
+- a __main__ module that exposes all these features (using argparse)
+- finally create an zipped app, that exposes all of these features
 
-## <b> Functions Implemented </b>
+## How to test your code:
+- each module must be independently available and tested (write test to check whether you can call them from command line) 
+- each feature must be available via argument selection
+- images must not be required to be in the same folder where your code is
 
-##  profile_stats(profiles, dict=False):
-    '''
-    Returns profile stats based on the random fake profiles generated
-    largest blood type
-    mean-current_location
-    oldest_person_age
-    average age
-
-    :args profiles - Named tuple or a dictionary
-    :args dict: bool operator which if flagged true will treat input as dictionary
-    :returns largest_blood_grp, highest_age, average_age, mean_location
-    '''
-
-## timers(n_reps):
-    '''Decorator with timers which takes no of iterations as arguments
-    and returns avg time taken in each iteration
-    :params n_reps : no of reps the functions needs to be tested'''
-
-## master_dict(fn):
-    '''This decorator returns a dictionary of 10k profiles'''
-
-## log_dict_function():
-    '''Function decorated with timers which takes no of iterations as arguments
-    and returns avg time taken in each iteration'''
-
-## master_profile(fn):
-    '''This decorator returns a tuple of 10k profiles'''
-
-## outer(fn):
-    '''A decorator that creates a fake data (you can use Faker for company names) for imaginary stock exchange for top 100 companies (name, symbol, open, high, close)'''
-
-## move_market():
-    '''Assigns a random weight to all the companies.'''
-
-## daily_updates(market_tuple):
-
-    ''' Calculate and show what value stock market started at, 
-    what was the highest value during the day and where did it end. 
-
-    :args market_tuple: Input named tuple containing list of all the market tuples
-    :returns: Updated market tuple
-    '''
-
-
-## <b>Testcases Implemented</b>
-
-##  test_readme_exists():
-    Checks if README.md exists
-
-##  test_readme_contents():
-    Contents of readme file has been properly written or not
-   
-
-##  test_readme_file_for_formatting():
-    Checks for Readme File formatting
-
-##  test_function_name_had_cap_letter():
-    Raises error if Functions has capital letter
-
-## test_perf_tuples_dicts():
-    '''Checks if namedtuples(named_tuples) performs better than dict(dict) '''
+## final test:
+- download 20 jpeg images of size more than 1000x1000
+- convert to png
+- convert to jpg
+- resize to 80%
+- resize to 500 width
+- resize to 500 height
+- all this using your zipped app
+- center crop to 224x224
+- You must have at least 20+ test. (github actions)
+- Each test is worth 50 points (no additional points for more tests). So total 1000 pts.
+Failing test, reduces mark.
