@@ -16,16 +16,29 @@ def typeconv(img_path, type='j2p'):
     mod_image - ndarray
     '''
     #Images path
-    print(os.listdir(os.getcwd()))
-    for path in img_path:
-        if type == 'j2p':
-            new_path = changeextn(path, '.png')
-            save_new_img(path, new_path)
-        elif type == 'p2j':
-            new_path = changeextn(path, '.jpg')
-            save_new_img(path, new_path)
-        else:
-            raise ValueError('Type can be only j2p or p2j')
+
+    converted = []
+    not_converted = []
+    try:
+        for path in img_path:
+            if type == 'j2p':
+                new_path = changeextn(path, '.png')
+                save_new_img(path, new_path)
+                
+            elif type == 'p2j':
+                new_path = changeextn(path, '.jpg')
+                save_new_img(path, new_path)
+                
+            else:
+                raise ValueError('Type can be only j2p or p2j')
+
+            converted.append(path)
+
+    except:
+        not_converted.append(path)
+
+    return converted, not_converted
+
     
 def save_new_img(oldpath, newpath):
     '''Takes the image at old path and replace it with
@@ -55,7 +68,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
 
     parser.add_argument('-f',
-                        type=list,
+                        type=str,
                         help='List of Path of images that needs to be processed')
     
 
@@ -65,14 +78,18 @@ if __name__ == '__main__':
     
     
     args = parser.parse_args()
-    print(args.r)
 
+    file_list = args.f.split(',')
 
     if args.r == 'j2p':
-        typeconv(img_path=args.f, type= args.r)
+        converted, not_converted = typeconv(img_path=file_list, type= args.r)
+
     
     elif args.r == 'p2j':
-        typeconv(img_path=args.f, type= args.r)
+        converted, not_converted = typeconv(img_path=file_list, type= args.r)
 
     else:
         print('Only res_p or res_w arguments are supported')
+    
+    print(f'Images Converted {converted}')
+    print(f'Images not converted {not_converted}')

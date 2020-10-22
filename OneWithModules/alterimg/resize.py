@@ -16,10 +16,11 @@ def reshaper(img_path:list, percent_reduction:int=0, height:int=0, width:int=0):
     Returns:
     mod_image - images
     '''
+    converted = []
+    not_converted = []
 
     for path in img_path:
         try:
-
             img = Image.open(path)
             x, y = Image.open(path).size
 
@@ -35,18 +36,19 @@ def reshaper(img_path:list, percent_reduction:int=0, height:int=0, width:int=0):
                 reduction = height/y*100
 
             else:
-                # print('Height smaller than 800 y is ==', y)
-                img.save(os.path.join(r'D:\Python Projects\abc', (str(round(time.time()*1000)) +'.jpg')))
                 raise ValueError('Wrong Values provided for reshaping Select integer values for height or width or percent value for percent_reduction')
 
             x, y = int(x*(reduction/100)), int(y*(reduction/100))
             print(f'reduced by {reduction} - New x {x} y {y}')
             new_img = img.resize(size=(x,y))
-            # print('ni',new_img)
-            new_img.save(os.path.join(r'D:\Python Projects\abc', (str(round(time.time()*1000)) +'.jpg')))
-            # return new_img
+            new_img.save(path)
+            converted.append(path)
+            
         except Exception as e:
-            print(e)
+            print('Exception encountered', e)
+            not_converted.append(path)
+    
+    return converted, not_converted
 
 
 if __name__ == '__main__':
@@ -54,29 +56,37 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description=__doc__)
 
-    parser.add_argument('image_list',
-                        type=list,
+    parser.add_argument('-f',
+                        type=str,
                         help='List of Path of images that needs to be processed')
     
 
-    parser.add_argument('operation',
+    parser.add_argument('-r',
                         type=str,
                         help='Type of operation that is performed')
-    
-    parser.add_argument('value',
+
+    parser.add_argument('-v',
                         type=int,
                         help='Number by which the images are to be reduced')
     
+    
+    
     args = parser.parse_args()
+    print(args)
 
-    if args.code == 'res_p':
-        reshaper(img_path=args.image_list, percent_reduction= args.value)
+    file_list = args.f.split(',')
+
+    if args.r == 'res_p':
+        converted, not_converted = reshaper(img_path=file_list, percent_reduction= args.v)
+
+    elif args.r == 'res_w':
+        converted, not_converted = reshaper(img_path=file_list, width= args.v)
     
-    elif args.code == 'res_w':
-        reshaper(img_path=args.image_list, width= args.value)
+    elif args.r == 'res_h':
+        converted, not_converted = reshaper(img_path=file_list, height= args.v)
+
+    else:
+        print('Only res_p or res_w arguments are supported')
     
-    elif args.code == 'res_h':
-        reshaper(img_path=args.image_list, height= args.value)
-
-
-
+    print(f'Images Converted {converted}')
+    print(f'Images not converted {not_converted}')
