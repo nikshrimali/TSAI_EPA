@@ -4,7 +4,7 @@ from PIL import Image
 from pathlib import Path
 import argparse
 import os
-def typeconv(img_path, type='j2p'):
+def typeconv(img_path:list, type:str='j2p')-> list:
     '''
     Helps in type conversion of images from jpeg to png or png to jpeg
     
@@ -21,6 +21,7 @@ def typeconv(img_path, type='j2p'):
     not_converted = []
     try:
         for path in img_path:
+            print('path ',path)
             if type == 'j2p':
                 new_path = changeextn(path, '.png')
                 save_new_img(path, new_path)
@@ -34,7 +35,8 @@ def typeconv(img_path, type='j2p'):
 
             converted.append(path)
 
-    except:
+    except Exception as e:
+        print(e)
         not_converted.append(path)
 
     return converted, not_converted
@@ -80,6 +82,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     file_list = args.f.split(',')
+    print(file_list)
 
     if args.r == 'j2p':
         converted, not_converted = typeconv(img_path=file_list, type= args.r)

@@ -1,4 +1,4 @@
-# Create these modules:
+#### Create these modules:
 - jpg/jpeg to png conversion (use PIL library) j2p
 - png to jpg conversion (use PIL library) p2j
 - image resizer that can resize bulk images with these features:
@@ -12,12 +12,12 @@
 - a __main__ module that exposes all these features (using argparse)
 - finally create an zipped app, that exposes all of these features
 
-## How to test your code:
+##### How to test your code:
 - each module must be independently available and tested (write test to check whether you can call them from command line) 
 - each feature must be available via argument selection
 - images must not be required to be in the same folder where your code is
 
-## final test:
+#### final test:
 - download 20 jpeg images of size more than 1000x1000
 - convert to png
 - convert to jpg

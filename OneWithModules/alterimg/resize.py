@@ -1,11 +1,9 @@
 # resize.py
 
 from PIL import Image
-from pathlib import Path
-import time, os
 import argparse
 
-def reshaper(img_path:list, percent_reduction:int=0, height:int=0, width:int=0):
+def reshaper(img_path:list, percent_reduction:int=0, height:int=0, width:int=0) -> list:
     '''
     Helps in type reshaping of images to a smaller size
 

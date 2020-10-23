@@ -4,7 +4,7 @@ from PIL import Image
 from pathlib import Path
 import argparse
 
-def cropconv(img_path, pixel_values:tuple=None, percent_reduction:int=0):
+def cropconv(img_path:list, pixel_values:tuple=None, percent_reduction:int=0)-> list:
     '''
     Helps in type cropping of images to a smaller size
 

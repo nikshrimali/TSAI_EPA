@@ -4,10 +4,12 @@
 # each feature must be available via argument selection
 # images must not be required to be in the same folder where your code is
 import argparse
+
 from typeconv import *
 from resize import *
 from cropper import *
 
+import glob
 
 
 if __name__ == '__main__':
@@ -16,7 +18,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-f',
                         type=str,
-                        help='List of Path of images that needs to be processed')
+                        help='Directory where images are located')
     
 
     parser.add_argument('-r',
@@ -29,7 +31,12 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
     print(args)
-    file_list = args.f.split(',')
+    # file_list = args.f.split(',')
+
+    
+    file_list = (glob.glob(args.f))
+
+    print('file_list', file_list)
 
     if args.r == 'crp_px':
         pixel_values = tuple([int(i) for i in args.v.split(',')])
