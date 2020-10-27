@@ -1,8 +1,6 @@
 import pytest
 import inspect
-from faker import Faker
 import os
-import re
 from alterimg.cropper import *
 from alterimg.resize import *
 from alterimg.typeconv import *
