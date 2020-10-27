@@ -2,11 +2,10 @@
 
 import math
 
-def cos(x:float) -> float:
-    '''Gets the cosine value of the input'''
-    return math.cos(x)
+def exp(x:float) -> float:
+    '''Gets the exponential value of the input'''
+    return math.exp(x)
 
-def derivative_cos(x:float) -> float:
-    '''
-    
-    '''
+def derivative_exp(x:float) -> float:
+    '''Gets the derivative of exponential of x'''
+    return math.exp(x)
