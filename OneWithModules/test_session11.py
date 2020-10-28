@@ -73,7 +73,7 @@ def test_resize_length():
 # Checks from files
 
 def test_dirpng_conv():
-    file_list = ["".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\4.jpg""]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\4.jpg"]
     typeconv(file_list, type='p2j')
     assert os.path.exists("assets\\test_images\\4.png") == True
 
@@ -85,7 +85,7 @@ def test_dirjpg_conv():
 
 def test_dircrop_percent():
 
-    file_list = ["".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\3.jpg""]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\3.jpg"]
     x, y = Image.open(file_list[0]).size
     percent_reduction = 80
     a, b = int(x*(percent_reduction/100)), int(y*(percent_reduction/100))
