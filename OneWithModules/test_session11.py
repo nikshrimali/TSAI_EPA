@@ -96,7 +96,7 @@ def test_dircrop_percent():
 
 def test_dircrop_width():
 
-    file_list = ["".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\5.jpg"]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\5.jpg"]
     x, y = Image.open(file_list[0]).size
     width = 100
     print(x,y)
