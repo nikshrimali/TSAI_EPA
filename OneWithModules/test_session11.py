@@ -34,7 +34,7 @@ def test_png_conv():
     assert not execute_command
 
 def test_jpg_conv():
-    code_stat = 'python alterimg -f "assets\\test_images\\*" -r "p2j"'
+    code_stat = 'python alterimg -f ".\\assets\\test_images\\*" -r "p2j"'
     execute_command = os.system(code_stat)
     print(execute_command)
     assert not execute_command
@@ -46,26 +46,26 @@ def test_center_crop():
     assert not execute_command
 
 def test_crop_percent():
-    code_stat = 'python alterimg -f "assets\\test_images\\*" -r "crp_p" -v "80"'
+    code_stat = 'python alterimg -f ".\\assets\\test_images\\*" -r "crp_p" -v "80"'
     execute_command = os.system(code_stat)
     print(execute_command)
     assert not execute_command
 
 def test_resize_percent():
-    code_stat = 'python alterimg -f "assets\\test_images\\*" -r "res_p" -v "80"'
+    code_stat = 'python alterimg -f ".\\assets\\test_images\\*" -r "res_p" -v "80"'
     execute_command = os.system(code_stat)
     print(execute_command)
     assert not execute_command
 
 # resize to 500 width
 def test_resize_width():
-    code_stat = 'python alterimg -f "assets\\test_images\\*" -r "res_w" -v "500"'
+    code_stat = 'python alterimg -f ".\\assets\\test_images\\*" -r "res_w" -v "500"'
     execute_command = os.system(code_stat)
     print(execute_command)
     assert not execute_command
 
 def test_resize_length():
-    code_stat = 'python alterimg -f "assets\\test_images\\*" -r "res_h" -v "500"'
+    code_stat = 'python alterimg -f ".\\assets\\test_images\\*" -r "res_h" -v "500"'
     execute_command = os.system(code_stat)
     print(execute_command)
     assert not execute_command
@@ -73,19 +73,19 @@ def test_resize_length():
 # Checks from files
 
 def test_dirpng_conv():
-    file_list = ["assets\\test_images\\4.jpg"]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\4.jpg"]
     typeconv(file_list, type='p2j')
     assert os.path.exists("assets\\test_images\\4.png") == True
 
 def test_dirjpg_conv():
-    file_list = ["assets\\test_images\\4.png"]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\4.png"]
     typeconv(file_list, type='j2p')
     assert os.path.exists("assets\\test_images\\4.jpg") == True
 
 
 def test_dircrop_percent():
 
-    file_list = ["assets\\test_images\\3.jpg"]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\3.jpg"]
     x, y = Image.open(file_list[0]).size
     percent_reduction = 80
     a, b = int(x*(percent_reduction/100)), int(y*(percent_reduction/100))
@@ -96,7 +96,7 @@ def test_dircrop_percent():
 
 def test_dircrop_width():
 
-    file_list = ["assets\\test_images\\5.jpg"]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\5.jpg"]
     x, y = Image.open(file_list[0]).size
     width = 100
     print(x,y)
@@ -110,7 +110,7 @@ def test_dircrop_width():
 
 def test_dircrop_length():
 
-    file_list = ["assets\\test_images\\6.jpg"]
+    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\6.jpg"]
     x, y = Image.open(file_list[0]).size
     height = 50
     print(x,y)
@@ -129,12 +129,12 @@ def test_check_docstring():
     assert cropconv.__doc__ != None
 
 def test_alterimg_returns_processed():
-    file_list = ["assets\\test_images\\6.jpg"]
+    file_list = [".\\assets\\test_images\\6.jpg"]
     converted, not_altered = typeconv(file_list, type='j2p')
     assert converted == file_list
 
 def test_alterimg_returns_notprocessed():
-    file_list = ["assets\\test_images\\xyz.jpg"]
+    file_list = [".\\assets\\test_images\\xyz.jpg"]
     converted, not_altered = typeconv(file_list, type='j2p')
     assert not_altered == file_list
 
