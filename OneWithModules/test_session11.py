@@ -73,19 +73,19 @@ def test_resize_length():
 # Checks from files
 
 def test_dirpng_conv():
-    file_list = ["./TSAI_EPA/OneWithModules/assets/test_images/6.jpg"]
+    file_list = ["./assets/test_images/4.jpg"]
     typeconv(file_list, type='p2j')
-    assert os.path.exists("assets\\test_images\\4.png") == True
+    assert os.path.exists("./assets/test_images/4.png") == True
 
 def test_dirjpg_conv():
-    file_list = [".\\assets\\test_images\\4.png"]
+    file_list = ["./assets/test_images/4.png"]
     typeconv(file_list, type='j2p')
-    assert os.path.exists("assets\\test_images\\4.jpg") == True
+    assert os.path.exists("./assets/test_images/4.jpg") == True
 
 
 def test_dircrop_percent():
 
-    file_list = [".\\OneWithModules\\assets\\test_images\\3.jpg"]
+    file_list = ["./assets/test_images/6.jpg"]
     x, y = Image.open(file_list[0]).size
     percent_reduction = 80
     a, b = int(x*(percent_reduction/100)), int(y*(percent_reduction/100))
@@ -96,7 +96,7 @@ def test_dircrop_percent():
 
 def test_dircrop_width():
 
-    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\5.jpg"]
+    file_list = ["./assets/test_images/6.jpg"]
     x, y = Image.open(file_list[0]).size
     width = 100
     print(x,y)
@@ -110,7 +110,7 @@ def test_dircrop_width():
 
 def test_dircrop_length():
 
-    file_list = ["./test_images/6.jpg"]
+    file_list = ["./assets/test_images/6.jpg"]
     x, y = Image.open(file_list[0]).size
     height = 50
     print(x,y)
