@@ -110,7 +110,7 @@ def test_dircrop_width():
 
 def test_dircrop_length():
 
-    file_list = [".\\TSAI_EPA\\OneWithModules\\assets\\test_images\\6.jpg"]
+    file_list = ["./OneWithModules/assets/test_images/6.jpg"]
     x, y = Image.open(file_list[0]).size
     height = 50
     print(x,y)
@@ -129,12 +129,12 @@ def test_check_docstring():
     assert cropconv.__doc__ != None
 
 def test_alterimg_returns_processed():
-    file_list = [".\\assets\\test_images\\6.jpg"]
+    file_list = ["./OneWithModules/assets/test_images/6.jpg"]
     converted, not_altered = typeconv(file_list, type='j2p')
     assert converted == file_list
 
 def test_alterimg_returns_notprocessed():
-    file_list = [".\\assets\\test_images\\xyz.jpg"]
+    file_list = ["./OneWithModules/assets/test_images/6.jpg"]
     converted, not_altered = typeconv(file_list, type='j2p')
     assert not_altered == file_list
 
