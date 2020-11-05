@@ -73,9 +73,9 @@ def test_resize_length():
 # Checks from files
 
 def test_dirpng_conv():
-    file_list = ["./assets/test_images/4.jpg"]
+    file_list = ["./assets/test_images/16.jpg"]
     typeconv(file_list, type='p2j')
-    assert os.path.exists("./assets/test_images/4.png") == True
+    assert os.path.exists("./assets/test_images/16.png") == True
 
 def test_dirjpg_conv():
     file_list = ["./assets/test_images/4.png"]
@@ -110,7 +110,7 @@ def test_dircrop_width():
 
 def test_dircrop_length():
 
-    file_list = ["./assets/test_images/6.jpg"]
+    file_list = ["./assets/test_images/10.jpg"]
     x, y = Image.open(file_list[0]).size
     height = 50
     print(x,y)
