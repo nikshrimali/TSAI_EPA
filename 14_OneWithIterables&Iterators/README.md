@@ -1,34 +1,13 @@
 # OneWithSequenceTypes
+The starting point for this project is the Polygon class and the Polygons sequence type we created in the previous project.
 
-Below stuff has been implemented
+The code for these classes along with the unit tests for the Polygon class are below if you want to use those as your starting point. But use whatever you came up with in the last project.
 
-## Polygon Class:
-Initializer takes in:
-- number of edges/vertices
-- circumradius
-
-Provides below properties:
-- edges
-- vertices
-- interior angle
-- edge length
-- apothem
-- area
-- perimeter
-that has these functionalities:
-- a proper __repr__ function
-- implements equality (==) based on # vertices and circumradius (__eq__)
-- implements > based on number of vertices only (__gt__)
+> Goal 1
+Refactor the Polygon class so that all the calculated properties are lazy properties, i.e. they should still be calculated properties, but they should not have to get recalculated more than once (since we made our Polygon class "immutable").
 
 
-## Custom Polygon sequence type:
-where initializer takes in:
-- number of vertices for largest polygon in the sequence
-- common circumradius for all polygons
-that can provide these properties:
-- max efficiency polygon: returns the Polygon with the highest area: perimeter ratio
-that has these functionalities:
-- functions as a sequence type (__getitem__)
-- supports the len() function (__len__)
-- has a proper representation (__repr__)
+> Goal 2
+Refactor the Polygons (sequence) type, into an iterable. Make sure also that the elements in the iterator are computed lazily - i.e. you can no longer use a list as an underlying storage mechanism for your polygons.
 
+You'll need to implement both an iterable, and an iterator.
