@@ -1,2 +1,3 @@
-## Extensive Python Internship
-> This repo contains the work I have done for EPA intenship for The School of AI
+## Extensive Python for AI
+
+> This repo contains the my works and researches on Advanced Python Features and is continuously developed and maintained by me.
