@@ -1,5 +1,29 @@
-# OneWithSequenceTypes
-The starting point for this project is the Polygon class and the Polygons sequence type we created in the previous project.
+# One With Iterables and Iterators
+
+In the last assignment our focus was to build a sequence types, in this assignment that code has been modified to create a Iterables and Iterators
+
+## What is an Iterator?
+An iterator is an object that provides you the values sequentially
+It implements two methods 
+- __iter__ - Returns itself
+- __next__
+
+In Iterators looping through for loop is enabled. Once the iterator is exhausted, we cannot reuse it. Using next method over it will throw a StopIteration and looping it using for loops will return nothing as for loops provides
+exception handling for StopIteration errors.
+
+
+## What is an Iterable?
+
+- Iterables comes in handy when we want to loop something again and again without worrying about exhausting of the elements. 
+
+- A list, tuple and dictionaries are iterables. Every time you call them, they will start the index from 0 and will never get exhausted
+
+- This is achieved as implementations of below methods.
+    - __iter__ - Returns an iterator not itself
+    - __next__
+    -  __getitem__ - Enable sequencing functionality to the Itearable
+
+
 
 The code for these classes along with the unit tests for the Polygon class are below if you want to use those as your starting point. But use whatever you came up with in the last project.
 
